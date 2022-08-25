@@ -23,7 +23,7 @@ class UdeskServiceProvider extends ServiceProvider implements DeferrableProvider
 
         $this->app->singleton('udesk.http.client', function ($app) {
             return new Guzzle(
-                (string) config('udesk.url'),
+                (string) config('udesk.crm.default.url'),
                 (int) config('udesk.timeout', 2),
                 (array) config('udesk.http.options', [])
             );
