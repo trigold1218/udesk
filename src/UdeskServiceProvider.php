@@ -1,4 +1,5 @@
 <?php
+
 namespace Trigold\Udesk;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -13,7 +14,7 @@ class UdeskServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/udesk.php', 'udesk');
+        $this->mergeConfigFrom(__DIR__.'/../config/udesk.php', 'udesk');
 
         $this->app->singleton(Crm::class, function ($app) {
             return new Crm(config('udesk'));
@@ -35,9 +36,9 @@ class UdeskServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/../config' => $this->app->basePath('config')], 'config');
-//        if ($this->app->runningInConsole()) {
-//        }
+        if ($this->app->runningInConsole()) {
+            $this->publishes([__DIR__.'/../config' => $this->app->basePath('config')], 'config');
+        }
     }
 
     public function provides(): array

@@ -19,6 +19,13 @@ class Guzzle implements HttpClient
         $this->options = $options;
     }
 
+    /**
+     * @param  string  $uri
+     * @param  array   $data
+     *
+     * @return array
+     * @throws
+     */
     public function get(string $uri, array $data): array
     {
         $uri .= (strpos($uri, '?') === false ? '?' : '&') . http_build_query($data);
@@ -37,7 +44,7 @@ class Guzzle implements HttpClient
      * @param  array   $data
      *
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws
      */
     public function post(string $uri, array $data = []): array
     {
