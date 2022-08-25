@@ -41,8 +41,7 @@ class AutoCall
         if ($status) {
             $parameters['status'] = $status;
         }
-
-        $resp = HttpClient::get($this->app->url('/api/v1/autoCallTasks/auto'), $parameters);
+        $resp = HttpClient::get($this->app->url('/api/v1/autoCallTasks'), $parameters);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {

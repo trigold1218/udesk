@@ -28,6 +28,7 @@ class Guzzle implements HttpClient
      */
     public function get(string $uri, array $data): array
     {
+
         $uri .= (strpos($uri, '?') === false ? '?' : '&') . http_build_query($data);
         $response = $this->client->get($uri, $this->options);
 
