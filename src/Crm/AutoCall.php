@@ -1,13 +1,4 @@
 <?php
-/**
- * This file is part of mapi.
- *
- * @link     https://code.addcn.com/8591/mapi
- * @document https://code.addcn.com/8591/mapi/blob/master/README.md
- * @contact  hdj@addcn.com
- * @contact  fengchen@addcn.com
- * @contact  sunny@addcn.com
- */
 namespace Trigold\Udesk\Crm;
 
 use RuntimeException;
@@ -34,14 +25,13 @@ class AutoCall
     public function getTasks(int $pageNum = 1, int $pageSize = 10, string $name = null, int $status = null): array
     {
         $parameters = compact('pageNum', 'pageSize');
-
         if ($name) {
             $parameters['name'] = $name;
         }
         if ($status) {
             $parameters['status'] = $status;
         }
-        $resp = HttpClient::get($this->app->url('/api/v1/autoCallTasks'), $parameters);
+        $resp = HttpClient::get($this->app->url('/api/v1/autoCallTasks/auto'), $parameters);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
