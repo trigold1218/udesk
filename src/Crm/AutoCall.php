@@ -69,7 +69,7 @@ class AutoCall
     public function postTasks(
         string $name,
         int $priority,
-        int $userGroupId,
+        ?int $userGroupId,
         int $type,
         int $startMode,
         int $scheduleId,
