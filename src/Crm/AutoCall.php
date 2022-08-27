@@ -1,4 +1,5 @@
 <?php
+
 namespace Trigold\Udesk\Crm;
 
 use RuntimeException;
@@ -15,10 +16,11 @@ class AutoCall
 
     /**
      * 自动外呼-获取任务列表.
-     * @param  int          $pageNum 页码
-     * @param  int          $pageSize 每页数量，默认20，最大50
-     * @param  string|null  $name 任务名称
-     * @param  int|null     $status 任务状态(1,进行中, 2,暂停中, 3,暂停, 4,完成, 5,归档)
+     *
+     * @param  int          $pageNum   页码
+     * @param  int          $pageSize  每页数量，默认20，最大50
+     * @param  string|null  $name      任务名称
+     * @param  int|null     $status    任务状态(1,进行中, 2,暂停中, 3,暂停, 4,完成, 5,归档)
      *
      * @return array
      */
@@ -31,7 +33,7 @@ class AutoCall
         if ($status) {
             $parameters['status'] = $status;
         }
-        $resp = HttpClient::get($this->app->url('/api/v1/autoCallTasks/auto'), $parameters);
+        $resp = HttpClient::get($this->app->url('/api/v1/autoCallTasks'), $parameters);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
@@ -39,7 +41,7 @@ class AutoCall
         }
         return [
             'paging' => $decoded['paging'] ?? [],
-            'data' => $decoded['data'] ?? [],
+            'data'   => $decoded['data'] ?? [],
         ];
     }
 
@@ -62,7 +64,7 @@ class AutoCall
      * @param  string  $redialGuide    重呼间隔(1～60分钟)
      * @param  string  $remark         描述
      *
-     * @return void
+     * @return array
      */
     public function postTasks(
         string $name,
@@ -77,11 +79,37 @@ class AutoCall
         int $ringOutTime,
         int $spNumberType,
         string $startTime,
-        string $redialScene,
-        int $redialTimes,
-        int $redialSpace,
-        string $redialGuide,
-        string $remark
-    ) {
+        string $redialScene = '',
+        int $redialTimes = 0,
+        int $redialSpace = 0,
+        string $redialGuide = '',
+        string $remark = ''
+    ): array {
+        $parameters = compact('name', 'priority', 'userGroupId', 'type', 'startMode', 'scheduleId', 'ivrRouterId',
+            'callOutNumber', 'callLimit', 'ringOutTime', 'spNumberType', 'startTime');
+        if ($redialScene) {
+            $parameters['redialScene'] = $redialScene;
+        }
+        if ($redialTimes) {
+            $parameters['redialTimes'] = $redialTimes;
+        }
+        if ($redialSpace) {
+            $parameters['redialSpace'] = $redialSpace;
+        }
+        if ($redialGuide) {
+            $parameters['redialGuide'] = $redialGuide;
+        }
+        if ($remark) {
+            $parameters['remark'] = $redialGuide;
+        }
+
+        $resp = HttpClient::post($this->app->url('/api/v1/autoCallTasks'), $parameters);
+        $decoded = json_decode($resp['body'], true);
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return [
+            'data' => $decoded['data'] ?? [],
+        ];
     }
 }
