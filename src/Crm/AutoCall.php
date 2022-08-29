@@ -46,23 +46,23 @@ class AutoCall
     }
 
     /**
-     * @param  string  $name           任务名称
-     * @param  int     $priority       优先级
-     * @param  int     $userGroupId    技能组
-     * @param  int     $type           任务类型(1精准,2比率,3预测,4语音)
-     * @param  int     $startMode      启动方式(1手动2定时)
-     * @param  int     $scheduleId     工作时间
-     * @param  int     $ivrRouterId    AI话术
-     * @param  string  $callOutNumber  主叫号码
-     * @param  int     $callLimit      并发数
-     * @param  int     $ringOutTime    振铃超时时长
-     * @param  int     $spNumberType   中断号类型(1中断号2号码池)
-     * @param  string  $startTime      启动时间(定时使用yyyy-MM-dd HH:mm:ss)
-     * @param  string  $redialScene    挂机原因
-     * @param  int     $redialTimes    重呼次数(1~6次)
-     * @param  int     $redialSpace    重呼间隔类型(1呼叫单个号码后定时重呼2任务号码全部执行一次后重呼)
-     * @param  string  $redialGuide    重呼间隔(1～60分钟)
-     * @param  string  $remark         描述
+     * @param  string    $name          任务名称
+     * @param  int       $priority      优先级
+     * @param  int|null  $userGroupId   技能组
+     * @param  int       $type          任务类型(1精准,2比率,3预测,4语音)
+     * @param  int       $startMode     启动方式(1手动2定时)
+     * @param  int       $scheduleId    工作时间
+     * @param  int       $ivrRouterId   AI话术
+     * @param  string    $calloutNumber 主叫号码
+     * @param  int       $callLimit     并发数
+     * @param  int       $ringOutTime   振铃超时时长
+     * @param  int       $spNumberType  中断号类型(1中断号2号码池)
+     * @param  string    $startTime     启动时间(定时使用yyyy-MM-dd HH:mm:ss)
+     * @param  string    $redialScene   挂机原因
+     * @param  int       $redialTimes   重呼次数(1~6次)
+     * @param  int       $redialSpace   重呼间隔类型(1呼叫单个号码后定时重呼2任务号码全部执行一次后重呼)
+     * @param  string    $redialGuide   重呼间隔(1～60分钟)
+     * @param  string    $remark        描述
      *
      * @return array
      */
@@ -74,11 +74,11 @@ class AutoCall
         int $startMode,
         int $scheduleId,
         int $ivrRouterId,
-        string $callOutNumber,
+        string $calloutNumber,
         int $callLimit,
         int $ringOutTime,
         int $spNumberType,
-        string $startTime,
+        string $startTime = '',
         string $redialScene = '',
         int $redialTimes = 0,
         int $redialSpace = 0,
@@ -86,7 +86,7 @@ class AutoCall
         string $remark = ''
     ): array {
         $parameters = compact('name', 'priority', 'userGroupId', 'type', 'startMode', 'scheduleId', 'ivrRouterId',
-            'callOutNumber', 'callLimit', 'ringOutTime', 'spNumberType', 'startTime');
+            'calloutNumber', 'callLimit', 'ringOutTime', 'spNumberType', 'startTime');
         if ($redialScene) {
             $parameters['redialScene'] = $redialScene;
         }
@@ -102,6 +102,10 @@ class AutoCall
         if ($remark) {
             $parameters['remark'] = $redialGuide;
         }
+        if ($startTime){
+            $parameters['startTime'] = $startTime;
+        }
+
 
         $resp = HttpClient::post($this->app->url('/api/v1/autoCallTasks'), $parameters);
         $decoded = json_decode($resp['body'], true);
