@@ -24,7 +24,7 @@ class UdeskServiceProvider extends ServiceProvider implements DeferrableProvider
 
         $this->app->singleton('udesk.http.client', function ($app) {
             return new Guzzle(
-                (string) config('udesk.apps.crm.default.url'),
+                (string) config('udesk.crm.url'),
                 (int) config('udesk.timeout', 2),
                 (array) config('udesk.http.options', [])
             );
@@ -43,10 +43,10 @@ class UdeskServiceProvider extends ServiceProvider implements DeferrableProvider
 
     public function provides(): array
     {
-        return collect(config('udesk.apps', []))
-            ->keys()
+        $crm = collect(config('udesk.crm.apps'),[])
+                ->keys()
             ->transform(function ($app, $key) {
-                return Str::start($app, 'udesk.');
+                return Str::start($app, 'udesk.crm.');
             })
             ->merge([
                 Crm::class,
@@ -54,5 +54,6 @@ class UdeskServiceProvider extends ServiceProvider implements DeferrableProvider
                 'udesk.http.client',
             ])
             ->all();
+        return $crm;
     }
 }

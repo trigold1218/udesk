@@ -28,13 +28,13 @@ class Crm
      */
     protected function app(?string $name = null): App
     {
-        $name = $name ?: Arr::get($this->config, 'apps.crm.'.$name, 'default');
+        $name = $name ?: Arr::get($this->config, 'crm.apps.'.$name, 'default');
         if (! isset($this->apps[$name])) {
-            if (! isset($this->config['apps']['crm'][$name])) {
-                throw new RuntimeException("config 'udesk.apps.crm.{$name}' is undefined");
+            if (! isset($this->config['crm']['apps'][$name])) {
+                throw new RuntimeException("config 'udesk.crm.apps.{$name}' is undefined");
             }
 
-            $config = $this->config['apps']['crm'][$name];
+            $config = $this->config['crm']['apps'][$name];
             $this->apps[$name] = new App($config['url'], $config['email'], $config['secret_key']);
         }
         return $this->apps[$name];
