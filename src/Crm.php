@@ -35,7 +35,7 @@ class Crm
             }
 
             $config = $this->config['crm']['apps'][$name];
-            $this->apps[$name] = new App($config['url'], $config['email'], $config['secret_key']);
+            $this->apps[$name] = new App($this->config['crm']['url'], $config['email'], $config['secret_key']);
         }
         return $this->apps[$name];
     }
