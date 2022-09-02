@@ -335,4 +335,120 @@ class AutoCall
         }
         return $decoded;
     }
+
+    /**
+     * 查询异步导入客户结果接口
+     *
+     * @param  int     $outboundTaskId
+     * @param  string  $batchId
+     *
+     * @return mixed
+     */
+    public function getCallTasksSyncNumberResult(int $outboundTaskId, string $batchId): array
+    {
+        $parameters = compact('outboundTaskId', 'batchId');
+        $resp = HttpClient::post($this->app->url('/api/v1/autoCallTasks/syncNumberResult'), $parameters);
+        $decoded = json_decode($resp['body'], true);
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 设置异步导入客户回调webhook地址
+     *
+     * @param  string    $payloadUrl
+     * @param  int|null  $id
+     *
+     * @return array
+     */
+    public function setTargetUrls(string $payloadUrl, int $id = null): array
+    {
+        $parameters = compact('payloadUrl');
+        if ($id) {
+            $parameters['id'] = $id;
+        }
+        $resp = HttpClient::post($this->app->url('/api/v1/targetUrls'), $parameters);
+        $decoded = json_decode($resp['body'], true);
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取中继号码列表
+     * @return array
+     */
+    public function getSpNumbers(): array
+    {
+        $resp = HttpClient::get($this->app->url('/api/v1/spNumbers'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取工作时间列表
+     * @return array
+     */
+    public function getWorkTimes(): array
+    {
+        $resp = HttpClient::get($this->app->url('/api/v1/worktimes'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取话术列表
+     * @return array
+     */
+    public function getSpeechTechniques(): array
+    {
+        $resp = HttpClient::get($this->app->url('/api/v1/speechTechniques'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取字段模板列表接口
+     * @return array
+     */
+    public function getOutboundCustomFieldTemplates(): array
+    {
+        $resp = HttpClient::get($this->app->url('/api/v1/outboundCustomFieldTemplates'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取外呼客户级别列表接口
+     * @return array
+     */
+    public function getClassification(): array
+    {
+        $resp = HttpClient::get($this->app->url('/api/v1/autoCallTasks/classification'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
 }

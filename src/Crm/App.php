@@ -55,51 +55,6 @@ class App
     }
 
     /**
-     * 获取主叫号码池列表
-     * @return array
-     */
-    public function getSpNumbersPool(): array
-    {
-        $resp = HttpClient::get($this->url('/api/v1/spNumbers/spNumberPool'), []);
-        $decoded = json_decode($resp['body'], true);
-
-        if ($decoded['code'] != 200) {
-            throw new RuntimeException($decoded['message']);
-        }
-        return $decoded;
-    }
-
-    /**
-     * 获取中继号码列表
-     * @return array
-     */
-    public function getSpNumbers(): array
-    {
-        $resp = HttpClient::get($this->url('/api/v1/spNumbers'), []);
-        $decoded = json_decode($resp['body'], true);
-
-        if ($decoded['code'] != 200) {
-            throw new RuntimeException($decoded['message']);
-        }
-        return $decoded;
-    }
-
-    /**
-     * 获取工作时间列表
-     * @return array
-     */
-    public function getWorkTimes(): array
-    {
-        $resp = HttpClient::get($this->url('/api/v1/worktimes'), []);
-        $decoded = json_decode($resp['body'], true);
-
-        if ($decoded['code'] != 200) {
-            throw new RuntimeException($decoded['message']);
-        }
-        return $decoded;
-    }
-
-    /**
      * 获取业务类型
      * @return array
      */
@@ -180,6 +135,21 @@ class App
     public function getHangupReasons(): array
     {
         $resp = HttpClient::get($this->url('/api/v1/hangupReasons'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取主叫号码池列表
+     * @return array
+     */
+    public function getSpNumbersPool(): array
+    {
+        $resp = HttpClient::get($this->app->url('/api/v1/spNumbers/spNumberPool'), []);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
