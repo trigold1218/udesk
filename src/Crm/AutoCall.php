@@ -186,7 +186,7 @@ class AutoCall
     public function startCallTasks(int $id): ?array
     {
         $parameters = compact('id');
-        $resp = HttpClient::get($this->app->url('/api/v1/autoCallTasks/status/start'), $parameters);
+        $resp = HttpClient::post($this->app->url('/api/v1/autoCallTasks/status/start/').'&id='.$id, $parameters);
         $decoded = json_decode($resp['body'], true);
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
