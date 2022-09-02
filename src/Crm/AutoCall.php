@@ -39,7 +39,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -108,7 +108,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -125,7 +125,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -173,7 +173,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -191,7 +191,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -209,7 +209,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -227,7 +227,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -269,7 +269,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -285,7 +285,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -309,7 +309,7 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 
     /**
@@ -333,6 +333,6 @@ class AutoCall
         if ($decoded['code'] != 200) {
             throw new RuntimeException($decoded['message']);
         }
-        return $decoded['body'];
+        return $decoded;
     }
 }
