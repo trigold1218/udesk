@@ -15,7 +15,7 @@ class App
 
     protected $secretKey;
 
-    protected $autoCall;
+    protected $robot;
 
     protected $crm;
 
@@ -26,7 +26,7 @@ class App
         $this->secretKey = $secretKey;
         $this->timestamp = time();
 
-        $this->autoCall = new AutoCall($this);
+        $this->robot = new Robot($this);
     }
 
     public function sign(): string
@@ -47,11 +47,11 @@ class App
 
     /**
      * 获取语音机器人请求实例
-     * @return AutoCall
+     * @return Robot
      */
-    public function autoCall(): AutoCall
+    public function robot(): Robot
     {
-        return $this->autoCall;
+        return $this->robot;
     }
 
     /**

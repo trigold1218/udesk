@@ -1,6 +1,7 @@
 <?php
 namespace Trigold\Udesk\Facades;
 
+use Trigold\Udesk\Crm\Robot;
 use Illuminate\Support\Facades\Facade;
 use Trigold\Udesk\Crm\AutoCall;
 
@@ -11,7 +12,7 @@ use Trigold\Udesk\Crm\AutoCall;
  * @method static array getCallLogs() 获取通话记录列表
  * @method static array getCallLogsDetail() 获取通话记录详情
  * @method static array getHangupReasons() 获取外呼挂机原因列表
- * @method static AutoCall autoCall() 获取语音机器人请求实例
+ * @method static Robot robot() 获取语音机器人请求实例
  */
 class Crm extends Facade
 {
