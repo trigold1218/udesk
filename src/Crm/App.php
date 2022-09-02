@@ -1,5 +1,9 @@
 <?php
+
 namespace Trigold\Udesk\Crm;
+
+use RuntimeException;
+use Trigold\Udesk\Facades\HttpClient;
 
 class App
 {
@@ -34,15 +38,34 @@ class App
     {
         $uri = ltrim($uri, '/');
         if ($withSign) {
-            $uri .= '?' . http_build_query([
-                'timestamp' => $this->timestamp, 'email' => $this->email, 'sign' => $this->sign(),
-            ]);
+            $uri .= '?'.http_build_query([
+                    'timestamp' => $this->timestamp, 'email' => $this->email, 'sign' => $this->sign(),
+                ]);
         }
         return $uri;
     }
 
+    /**
+     * 获取语音机器人请求实例
+     * @return AutoCall
+     */
     public function autoCall(): AutoCall
     {
         return $this->autoCall;
+    }
+
+    /**
+     * 获取主叫号码池列表
+     * @return array
+     */
+    public function getSpNumbersPool():array
+    {
+        $resp = HttpClient::get($this->url('/api/v1/spNumbers/spNumberPool'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
     }
 }
