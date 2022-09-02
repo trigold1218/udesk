@@ -58,9 +58,128 @@ class App
      * 获取主叫号码池列表
      * @return array
      */
-    public function getSpNumbersPool():array
+    public function getSpNumbersPool(): array
     {
         $resp = HttpClient::get($this->url('/api/v1/spNumbers/spNumberPool'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取中继号码列表
+     * @return array
+     */
+    public function getSpNumbers(): array
+    {
+        $resp = HttpClient::get($this->url('/api/v1/spNumbers'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取工作时间列表
+     * @return array
+     */
+    public function getWorkTimes(): array
+    {
+        $resp = HttpClient::get($this->url('/api/v1/worktimes'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取业务类型
+     * @return array
+     */
+    public function getBusinessCategories(): array
+    {
+        $resp = HttpClient::get($this->url('/api/v1/businessCategorys'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取地区（省市区）信息
+     * @return array
+     */
+    public function getAreas(): array
+    {
+        $resp = HttpClient::get($this->url('/api/v1/areas'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取通话记录列表
+     *
+     * @param  string  $startTime
+     * @param  string  $endTime
+     * @param  int     $pageNum
+     * @param  int     $pageSize
+     *
+     * @return array
+     */
+    public function getCallLogs(
+        string $startTime,
+        string $endTime,
+        int $pageNum = 1,
+        int $pageSize = 20
+    ): array {
+        $resp = HttpClient::get($this->url('/api/v1/callLogs'), []);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取通话记录详情
+     *
+     * @param $callId
+     *
+     * @return array
+     */
+    public function getCallLogsDetail($callId): array
+    {
+        $parameters = compact('callId');
+        $resp = HttpClient::get($this->url('/api/v1/callLogs/view'), $parameters);
+        $decoded = json_decode($resp['body'], true);
+
+        if ($decoded['code'] != 200) {
+            throw new RuntimeException($decoded['message']);
+        }
+        return $decoded;
+    }
+
+    /**
+     * 获取外呼挂机原因列表
+     * @return array
+     */
+    public function getHangupReasons(): array
+    {
+        $resp = HttpClient::get($this->url('/api/v1/hangupReasons'), []);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
