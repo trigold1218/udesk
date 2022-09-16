@@ -467,4 +467,54 @@ class Robot
         }
         return $decoded;
     }
+
+    /**
+     * hangup事件回调
+     *
+     * @param $fun
+     *
+     * @return void
+     */
+    public function webHookByHangup($fun)
+    {
+        if (!is_callable($fun)) {
+            throw new RuntimeException('The callback is not callable');
+        }
+        $parameters = request()->post();
+        $parameters = json_decode($parameters, true);
+
+        $this->app->webHookAuth($parameters);
+
+        if (!in_array('hangup', $parameters['events'])) {
+            return;
+        }
+        //调用回调
+        $fun(json_decode($parameters['data'], true));
+    }
+
+    /**
+     * outboundTaskStatus 事件回调
+     *
+     * @param $fun
+     *
+     * @return void
+     */
+    public function webHookByOutboundTaskStatus($fun)
+    {
+        if (!is_callable($fun)) {
+            throw new RuntimeException('The callback is not callable');
+        }
+        $parameters = request()->post();
+        $parameters = json_decode($parameters, true);
+
+        $this->app->webHookAuth($parameters);
+
+        if (!in_array('outboundTaskStatus', $parameters['events'])) {
+            return;
+        }
+
+        //调用回调
+        $fun(json_decode($parameters['data'], true));
+    }
+
 }

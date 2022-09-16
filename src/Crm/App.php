@@ -157,4 +157,34 @@ class App
         }
         return $decoded;
     }
+
+    /**
+     * 回调鉴权
+     *
+     * @param  array  $parameters
+     *
+     * @return void
+     */
+    public function webHookAuth(array $parameters = [])
+    {
+        $uuid = $parameters['uuid'] ?? '';
+        $events = $parameters['events'] ?? [];
+        $timestamp = $parameters['timestamp'] ?? 0;
+        $signature = $parameters['signature'] ?? '';
+
+        if (empty($uuid) || empty($timestamp) || empty($signature) || empty($events)) {
+            throw new RuntimeException('parameter error');
+        }
+
+        $calSignature = sha1(sprintf('%s&%s&%s', $uuid, $this->secretKey, $timestamp));
+        if ($calSignature !== $signature) {
+            throw new RuntimeException('signature error');
+        }
+
+        $data = $parameters['data'] ?? '';
+        if (!$data) {
+            throw new RuntimeException('data error');
+        }
+    }
+
 }
