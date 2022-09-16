@@ -481,7 +481,6 @@ class Robot
             throw new RuntimeException('The callback is not callable');
         }
         $parameters = request()->post();
-        $parameters = json_decode($parameters, true);
 
         $this->app->webHookAuth($parameters);
 
