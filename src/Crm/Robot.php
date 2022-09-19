@@ -469,50 +469,27 @@ class Robot
     }
 
     /**
-     * hangup事件回调
-     *
-     * @param $fun
+     * 事件回调
+     * @param  string  $event
+     * @param          $callable
      *
      * @return void
      */
-    public function webHookByHangup($fun)
+    public function webHook(string $event, $callable)
     {
-        if (!is_callable($fun)) {
+        if (!is_callable($callable)) {
             throw new RuntimeException('The callback is not callable');
         }
         $parameters = request()->post();
 
         $this->app->webHookAuth($parameters);
 
-        if (!in_array('hangup', $parameters['events'])) {
-            return;
-        }
-        //调用回调
-        $fun(json_decode($parameters['data'], true));
-    }
-
-    /**
-     * outboundTaskStatus 事件回调
-     *
-     * @param $fun
-     *
-     * @return void
-     */
-    public function webHookByOutboundTaskStatus($fun)
-    {
-        if (!is_callable($fun)) {
-            throw new RuntimeException('The callback is not callable');
-        }
-        $parameters = request()->post();
-
-        $this->app->webHookAuth($parameters);
-
-        if (!in_array('outboundTaskStatus', $parameters['events'])) {
+        if (!in_array($event, $parameters['events'])) {
             return;
         }
 
         //调用回调
-        $fun(json_decode($parameters['data'], true));
+        $callable(json_decode($parameters['data'], true));
     }
 
 }
