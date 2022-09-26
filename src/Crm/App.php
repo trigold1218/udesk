@@ -4,6 +4,8 @@ namespace Trigold\Udesk\Crm;
 
 use RuntimeException;
 use Trigold\Udesk\Facades\HttpClient;
+use Trigold\Udesk\Exception\ParameterException;
+use Trigold\Udesk\Exception\SignatureException;
 
 class App
 {
@@ -164,6 +166,8 @@ class App
      * @param  array  $parameters
      *
      * @return void
+     * @throws ParameterException
+     * @throws SignatureException
      */
     public function webHookAuth(array $parameters = [])
     {
@@ -173,17 +177,17 @@ class App
         $signature = $parameters['signature'] ?? '';
 
         if (empty($uuid) || empty($timestamp) || empty($signature) || empty($events)) {
-            throw new RuntimeException('parameter error');
+            throw new ParameterException('parameter error');
         }
 
         $calSignature = sha1(sprintf('%s&%s&%s', $uuid, $this->secretKey, $timestamp));
         if ($calSignature !== $signature) {
-            throw new RuntimeException('signature error');
+            throw new SignatureException('signature error');
         }
 
         $data = $parameters['data'] ?? '';
         if (!$data) {
-            throw new RuntimeException('data error');
+            throw new ParameterException('data error');
         }
     }
 
