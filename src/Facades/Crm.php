@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getCallLogsDetail() 获取通话记录详情
  * @method static array getHangupReasons() 获取外呼挂机原因列表
  * @method static Robot robot() 获取语音机器人请求实例
- * @method static Robot webHookAuth(Request $request) 回调鉴权
+ * @method static Robot webHookAuth(array $request) 回调鉴权
  */
 class Crm extends Facade
 {
