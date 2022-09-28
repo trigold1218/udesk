@@ -4,8 +4,8 @@ namespace Trigold\Udesk\Crm;
 
 use RuntimeException;
 use Trigold\Udesk\Facades\HttpClient;
-use Trigold\Udesk\Exception\ParameterException;
-use Trigold\Udesk\Exception\SignatureException;
+use Trigold\Udesk\Exceptions\ParameterException;
+use Trigold\Udesk\Exceptions\SignatureException;
 
 class App
 {
