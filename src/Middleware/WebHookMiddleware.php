@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Trigold\Udesk\Facades\Crm;
 
-class WebHook
+class WebHookMiddleware
 {
     /**
      * @param  Request  $request
@@ -15,7 +15,11 @@ class WebHook
      * @return mixed
      */
     public function handle(Request $request,Closure $next){
-        Crm::webHookAuth($request->post());
+        try {
+            Crm::webHookAuth($request->post());
+        }catch (\Exception $e){
+            return response($e->getMessage(), 403);
+        }
         return $next($request);
     }
 }
