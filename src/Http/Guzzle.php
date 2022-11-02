@@ -29,7 +29,7 @@ class Guzzle implements HttpClient
      * @return array
      * @throws
      */
-    public function get(string $uri, array $data): array
+    public function get(string $uri, array $data = []): array
     {
 
         $uri .= (strpos($uri, '?') === false ? '?' : '&').http_build_query($data);
