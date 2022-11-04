@@ -15,3 +15,4 @@ _ide_helper_*
 php-cs-fixer.phar
 .vscode/
 .vscode/settings.json
+composer.lock
