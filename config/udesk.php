@@ -2,6 +2,7 @@
 return [
     'timeout' => 2.0,
     'crm'=>[
+        'default' => 'default',
         'url' => env('UDESK_CRM_URL', ''),
         'apps'=>[
             'default' => [
@@ -11,6 +12,7 @@ return [
         ],
     ],
     'ccps'=>[
+        'default' => 'default',
         'url' => env('UDESK_CCPS_URL', ''),
         'apps'=>[
             'default' => [
