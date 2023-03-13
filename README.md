@@ -20,7 +20,6 @@
 #### 其他环境
 ```(new Ccps(EMAIL,APPID,SECRET))->robot()->executing(任务id);```
 
-
 ### 具体可查看
 ```src/App/Crm/Crm.php```
 ```src/App/Ccps/Ccps.php```
