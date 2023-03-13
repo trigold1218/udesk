@@ -224,6 +224,27 @@ class Robot
     }
 
     /**
+     * 批量添加号码到外呼任务(后台简版).
+     *
+     * @param  int    $callTaskId 任务id
+     * @param  int    $contactBatchId 批次id
+     * @param  array  $mobiles 手机号码
+     * @param  int    $taskContactBatchRelId 联系单主键ID
+     *
+     * @return array
+     */
+    public function contactBatchAddNumber(
+        int $callTaskId,
+        int $contactBatchId,
+        array $mobiles,
+        int $taskContactBatchRelId
+    ): array {
+        $parameters = compact('callTaskId', 'contactBatchId', 'mobiles', 'taskContactBatchRelId');
+        return $this->response($this->app->client->post($this->app->url('/api/v1/ads/contactBatchs/defaultContact/addNumber'),
+            $parameters));
+    }
+
+    /**
      * 启动外呼任务.
      *
      * @param  int  $id

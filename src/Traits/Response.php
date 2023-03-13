@@ -11,7 +11,7 @@ trait Response
         $decoded = json_decode($response['body'], true);
 
         if (empty($decoded)) {
-            throw new InvalidArgumentException('Invalid response.');
+            throw new InvalidArgumentException(json_encode($response));
         }
 
         if (!empty($decoded['code']) && $decoded['code'] != 200 || !empty($decoded['status']) && $decoded['status'] != 200) {
