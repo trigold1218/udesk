@@ -31,7 +31,8 @@
                 "Trigold\\Udesk\\UdeskServiceProvider"
             ],
             "aliases": {
-                "Ccps": "Trigold\\Udesk\\Laravel\\Facades\\Ccps"
+                "Ccps": "Trigold\\Udesk\\Laravel\\Facades\\Ccps",
+                "Crm": "Trigold\\Udesk\\Laravel\\Facades\\Crm"
             }
         }
     }
