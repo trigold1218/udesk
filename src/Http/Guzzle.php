@@ -7,11 +7,11 @@ use Trigold\Udesk\Contracts\HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 
-class Guzzle extends \Trigold\Udesk\Laravel\Facades\HttpClient implements HttpClient
+class Guzzle implements HttpClient
 {
-    protected $client;
+    protected Client $client;
 
-    protected $options;
+    protected array $options;
 
     public function __construct(string $baseUri = '', int $timeout = 2, array $options = [])
     {

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getHangupReasons() 获取外呼挂机原因列表
  * @method static Robot robot() 获取语音机器人请求实例
  * @method static Robot webHookAuth(array $request) 回调鉴权
+ * @method static  \Trigold\Udesk\App\Crm\Crm driver() 获取指定驱动
  */
 class Crm extends Facade
 {
