@@ -1,12 +1,4 @@
 <?php
-/**
- * This file is part of mas.
- *
- * @link     https://code.addcn.com
- * @document https://code.addcn.com/8591/mas/blob/master/README.md
- * @contact  hdj@addcn.com
- * @license  https://code.addcn.com/8591/mas/blob/master/LICENSE
- */
 
 namespace Trigold\Udesk\Crm;
 
