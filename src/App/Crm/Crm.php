@@ -4,7 +4,7 @@ namespace Trigold\Udesk\App\Crm;
 
 use RuntimeException;
 use Trigold\Udesk\Http\Guzzle;
-use Trigold\Udesk\Laravel\Facades\HttpClient;
+use Trigold\Udesk\Contracts\HttpClient;
 use Trigold\Udesk\Exceptions\ParameterException;
 use Trigold\Udesk\Exceptions\SignatureException;
 
@@ -66,7 +66,7 @@ class Crm
      */
     public function getBusinessCategories(): array
     {
-        $resp = HttpClient::get($this->url('/api/v1/businessCategorys'), []);
+        $resp = $this->client->get($this->url('/api/v1/businessCategorys'), []);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
@@ -81,7 +81,7 @@ class Crm
      */
     public function getAreas(): array
     {
-        $resp = HttpClient::get($this->url('/api/v1/areas'), []);
+        $resp = $this->client->get($this->url('/api/v1/areas'), []);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
@@ -106,7 +106,7 @@ class Crm
         int $pageNum = 1,
         int $pageSize = 20
     ): array {
-        $resp = HttpClient::get($this->url('/api/v1/callLogs'), []);
+        $resp = $this->client->get($this->url('/api/v1/callLogs'), []);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
@@ -125,7 +125,7 @@ class Crm
     public function getCallLogsDetail($callId): array
     {
         $parameters = compact('callId');
-        $resp = HttpClient::get($this->url('/api/v1/callLogs/view'), $parameters);
+        $resp = $this->client->get($this->url('/api/v1/callLogs/view'), $parameters);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
@@ -140,7 +140,7 @@ class Crm
      */
     public function getHangupReasons(): array
     {
-        $resp = HttpClient::get($this->url('/api/v1/hangupReasons'), []);
+        $resp = $this->client->get($this->url('/api/v1/hangupReasons'), []);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
@@ -155,7 +155,7 @@ class Crm
      */
     public function getSpNumbersPool(): array
     {
-        $resp = HttpClient::get($this->app->url('/api/v1/spNumbers/spNumberPool'), []);
+        $resp = $this->client->get($this->app->url('/api/v1/spNumbers/spNumberPool'), []);
         $decoded = json_decode($resp['body'], true);
 
         if ($decoded['code'] != 200) {
