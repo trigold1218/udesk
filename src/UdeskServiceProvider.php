@@ -37,6 +37,6 @@ class UdeskServiceProvider extends ServiceProvider implements DeferrableProvider
 
     public function provides(): array
     {
-        return ['udesk.ccps'];
+        return ['udesk.ccps', 'udesk.crm'];
     }
 }

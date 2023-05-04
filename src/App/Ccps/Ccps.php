@@ -22,7 +22,7 @@ class Ccps
 
     public HttpClient $client;
 
-    public function __construct(string $email, string $appId, string $secret,?HttpClient $client)
+    public function __construct(string $email, string $appId, string $secret, ?HttpClient $client)
     {
         $this->email = $email;
         $this->appId = $appId;
